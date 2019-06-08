@@ -16,9 +16,17 @@ public class GameManager : MonoBehaviour {
    
     public float speed = 1.0f; // 게임의 난이도를 위한 Speed 역할을 하는 변수
     public float meter; // 게임의 진행거리를 보여줄 변수
+    public float level = 1.0f; //레벨업
+    public float Gentime = 20.0f; //난이도용
 
     // 게임 시작과 동시에 싱글톤을 구성
     void Awake() {
+
+
+        //화면 고정 설정.
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
+        Screen.SetResolution(1100  , 420, false);
+
         // 싱글톤 변수 instance가 비어있는가?
         if (instance == null)
         {
@@ -39,6 +47,10 @@ public class GameManager : MonoBehaviour {
     void Start(){
         this.DistancePlayingText = GameObject.Find("Distance Text");
         // this.DistanceScoreText = GameObject.Find("DistanceScore Text");
+
+        //20미터 마다 레벨업
+        StartCoroutine(levelUpSpeed());
+        StartCoroutine(levelUpGen());
     }
 
     void Update() {
@@ -50,6 +62,7 @@ public class GameManager : MonoBehaviour {
         }
 
         AddTime();
+
     }
 
     public void AddTime(){
@@ -58,6 +71,34 @@ public class GameManager : MonoBehaviour {
             meter += Time.deltaTime * speed;
             this.DistancePlayingText.GetComponent<Text>().text = meter.ToString("F1")+"m";
         }
+    }
+
+    //난이도 증가
+    IEnumerator levelUpSpeed()
+    {
+        if (!isGameover)
+        {
+            //5씩 증가
+            level += 0.5f;
+            Debug.Log("lvup! 1");
+        }
+        //20미터 마다
+        yield return new WaitForSeconds(20);
+        StartCoroutine(levelUpSpeed());
+    }
+
+    //난이도 증가
+    IEnumerator levelUpGen()
+    {
+        if (!isGameover)
+        {
+            //5씩 증가
+            Gentime -= 2 ;
+            Debug.Log("lvup! 2");
+        }
+        //20미터 마다
+        yield return new WaitForSeconds(40);
+        StartCoroutine(levelUpGen());
     }
 
     // 점수를 증가시키는 메서드

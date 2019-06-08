@@ -6,23 +6,30 @@ public class ObstacleScript : MonoBehaviour
 {
     //프리팹을 넣어줄 공개변수들
     public Transform obstacle;
-    
-    private bool crash = false; // 플레이어 캐릭터가 닿았는가
+
+    //생성 시간
+    float Gentime;
+
+    //난이도용
+    GameManager gm;
 
     float timer = 0; //누적시간을 저장할 변수
-    float speed = 0.3f; //시간
+
     // Use this for initialization
     void Start()
     {
-
+        //난이도용
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        Gentime = gm.Gentime;
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         //시간을 누적시킴
         timer += Time.deltaTime;
-        float randTime = Random.Range(5, 20);
+        float randTime = Random.Range(3, Gentime);
         //랜덤 시간이 지나면 나옴
         if (timer > randTime)
         {
@@ -32,9 +39,10 @@ public class ObstacleScript : MonoBehaviour
             //누적시간 초기화
             timer = 0;
         }
-
+        //난이도용
+        Gentime = gm.Gentime;
     }
-    
+
     void CreateEnemy()
     {
         float temp = Random.Range(1.0f, 5.0f);

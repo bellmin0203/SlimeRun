@@ -5,28 +5,34 @@ using UnityEngine;
 public class ObstacleMove : MonoBehaviour
 {
     public float speed = 3f; // 이동 속도
+    //난이도용
+    float lvspeed = 1.0f;
+    GameManager gm;
     //GameObject player;
     void Start()
     {
         //this.player = GameObject.Find("Player");
+        //난이도용
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     void Update()
     {
         // 초당 speed의 속도로 왼쪽으로 평행이동
-        transform.Translate(Vector3.left * speed * Time.deltaTime);
+        transform.Translate(Vector3.left * speed * Time.deltaTime * lvspeed);
         // 레벨링 디자인
-        
-        if((((int)GameManager.instance.meter)+1) % 5 == 0){
-            speed *= 1.5f;
-        }
-            // speed *= 1.5f;
-        
-        // if (transform.position.x < -9.0f)
-        // {
-        //     Destroy(gameObject);
-        // }
+        lvspeed = gm.level;
 
+
+
+            // speed *= 1.5f;
+
+        /*
+         if (transform.position.x < -9.0f)
+        {
+             Destroy(gameObject);
+        }
+        */
         //충돌판정
         // Vector2 p1 = transform.position;
         // Vector2 p2 = this.player.transform.position;
@@ -34,7 +40,7 @@ public class ObstacleMove : MonoBehaviour
         // float d = dir.magnitude;
         // float r1 = 0.4f; //가시반경
         // float r2 = 0.5f; //플레이어 반경
-        
+
         // if (d < r1 + r2)
         // {
         //     Destroy(gameObject);

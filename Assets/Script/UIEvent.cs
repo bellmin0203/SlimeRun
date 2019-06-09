@@ -31,8 +31,8 @@ public class UIEvent : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); // 현재 씬 다시 로드
     }
 
-    public void ExitBtn(){
-        Debug.Log("게임 종료");
-        Application.Quit(); //게임 종료 
-    }
+    // public void ExitBtn(){
+    //     Debug.Log("게임 종료");
+    //     Application.Quit(); //게임 종료 
+    // }
 }

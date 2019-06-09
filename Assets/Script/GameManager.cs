@@ -101,11 +101,6 @@ public class GameManager : MonoBehaviour {
         StartCoroutine(levelUpGen());
     }
 
-    // 점수를 증가시키는 메서드
-    public void AddScore() {
-        
-    }
-
     // 플레이어 캐릭터가 사망시 게임 오버를 실행하는 메서드
     public void OnPlayerDead() {
         //this.DistanceScoreText.GetComponent<Text>().text = "You've reached " + meter.ToString("F1") + "m";
